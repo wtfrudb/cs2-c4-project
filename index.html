@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>CS2 C4 Final Revision</title>
+</head>
+<body>
+    <div class="bomb-viewport">
+        <div class="c4-main-structure">
+            
+            <div class="explosive-units">
+                <div class="c4-unit"><span>M2 A1 DEMO</span></div>
+                <div class="c4-unit"><span>EXPLOSIVE</span></div>
+                <div class="c4-unit"><span>C4 - TNT</span></div>
+            </div>
+
+            <div class="duct-tape tape-top"></div>
+            <div class="duct-tape tape-bottom"></div>
+
+            <svg class="wiring-system" viewBox="-100 -42 600 800" preserveAspectRatio="none">
+                <path d="M330,85 C330,-10 500,200 320,485" class="wire-y" />
+                <path d="M260,85 C260,10 550,100 320,425" class="wire-b" />
+                <path d="M5,85 C70,40 -50,200 125,305" class="wire-r" />                
+                <path d="M120,85 C100,50 550,0 320,365" class="wire-r" />
+            </svg>
+
+
+            
+            <div class="control-module">
+                <div class="lcd-housing">
+                    <div id="display" class="lcd-screen">LOCKED</div>
+                </div>
+
+                <div class="keypad-chassis">
+                    <div class="status-leds">
+                        <div class="led-y"></div>
+                        <div id="red-led" class="led-r"></div>
+                        <div class="led-static"></div>
+                        <div class="led-static"></div>
+                    </div>
+
+                    <div class="button-grid">
+                        <button onclick="window.press('7')">7</button><button onclick="window.press('8')">8</button><button onclick="window.press('9')">9</button>
+                        <button onclick="window.press('4')">4</button><button onclick="window.press('5')">5</button><button onclick="window.press('6')">6</button>
+                        <button onclick="window.press('1')">1</button><button onclick="window.press('2')">2</button><button onclick="window.press('3')">3</button>
+                        <button onclick="window.press('C')" class="btn-dark">C</button><button onclick="window.press('0')">0</button><button onclick="window.press('=')" class="btn-action">=</button>
+                    </div>
+
+                    <div class="math-row">
+                        <button onclick="window.press('+')">+</button><button onclick="window.press('-')">-</button>
+                        <button onclick="window.press('*')">*</button><button onclick="window.press('/')">/</button>
+                        <button onclick="window.press('^')">^</button><button onclick="window.press('sqrt')">√</button>
+                    </div>
+                </div>
+                <div class="goose-sticker"></div>
+            </div>
+
+            <div class="master-switch">
+                <label class="rocker">
+                    <input type="checkbox" onchange="window.flipSwitch(this.checked)">
+                    <span class="rocker-plate"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="./out/Logic.js"></script>
+</body>
+</html>

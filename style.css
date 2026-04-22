@@ -1,0 +1,240 @@
+:root {
+    --kb-w: 260px;
+    --block-w: calc(var(--kb-w) * 0.52); 
+    --c4-tan: #b59a6d;
+}
+
+body {
+    background: #111;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Courier New', monospace;
+}
+
+.bomb-viewport {
+    width: 600px;
+    height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.c4-main-structure {
+    position: relative;
+    width: calc(var(--block-w) * 3);
+    height: 620px;
+}
+
+/* 1. Контейнер для брусков */
+.explosive-units {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    /* Добавляем расстояние между брусками */
+    gap: 3px; 
+    /* Убираем фон контейнера, так как теперь между брусками должно быть пусто */
+    background: transparent; 
+    box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+}
+
+/* 2. Индивидуальный брусок */
+.c4-unit {
+    flex: 1;
+    height: 100%;
+    /* Твой ровный цвет с текстурой (без градиента) */
+    background: 
+        url('https://www.transparenttextures.com/patterns/asfalt-dark.png'),
+        #b59a6d;
+    background-blend-mode: overlay;
+    
+    /* ЗАКРУГЛЕНИЕ КРАЕВ каждого бруска */
+    border-radius: 12px; 
+    
+    /* Убираем или делаем мягче границу */
+    border: 1px solid rgba(0,0,0,0.2); 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Добавим легкую тень каждому бруску для объема, раз градиента нет */
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.1);
+}
+
+.c4-unit span {
+    transform: rotate(-90deg);
+    color: rgba(0,0,0,0.35);
+    font-weight: 900; font-size: 16px; letter-spacing: 4px;
+}
+
+/* Изолента теперь СТРОГО по ширине брусков */
+.duct-tape {
+    position: absolute;
+    width: 100%; 
+    left: 0;
+    height: 70px;
+    z-index: 15;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    
+    /* Базовый цвет чуть светлее, чтобы грязь не «съела» его */
+    background-color: #c0c0c0;
+
+    background-image: 
+        /* 3. ГОРИЗОНТАЛЬНОЕ ПЛЕТЕНИЕ (Армирование) */
+        repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(0,0,0,0.1) 3px, transparent 4px),
+        /* 4. ЭФФЕКТ ПОМЯТОСТИ (Неравномерные пятна) */
+        radial-gradient(circle at 30% 40%, rgba(255,255,255,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(0,0,0,0.1) 0%, transparent 60%);
+
+    /* Убираем multiply для бликов, оставляем только для теней */
+    background-blend-mode: normal, multiply, multiply, screen, multiply;
+}
+
+.tape-top { 
+    top: 145px; 
+    width: calc(100% + 40px); 
+    left: -40px; 
+}
+
+.tape-bottom { 
+    bottom: 15px; 
+}
+
+/* Система проводов */
+.wiring-system {
+    position: absolute;
+    top: -150px; 
+    left: -100px; 
+    width: calc(100% + 200px); 
+    height: calc(100% + 300px);
+    
+    /* ИЗМЕНЕНИЕ ЗДЕСЬ: ставим 20, чтобы быть выше скотча (у которого 15) */
+    z-index: 20; 
+    
+    pointer-events: none;
+    overflow: visible !important; 
+}
+
+/* Остальные параметры проводов остаются прежними */
+.wiring-system path {
+    fill: none;
+    stroke-width: 9;
+    stroke-linecap: round;
+    filter: drop-shadow(4px 8px 6px rgba(0,0,0,0.6));
+}
+
+/* Цвета без изменений */
+.wire-r { stroke: #901515; }
+.wire-b { stroke: #1a4a9e; }
+.wire-y { stroke: #c4a61a; }
+
+
+/* Блок управления */
+.control-module {
+    position: absolute;
+    top: 43%; left: 50%;
+    transform: translate(-50%, -45%);
+    width: var(--kb-w);
+    z-index: 20;
+}
+
+/* Внешняя рамка (корпус) вокруг экрана */
+.lcd-housing {
+    background: #2a2a2a; 
+    padding: 8px; 
+    border: 2px solid #111; 
+    margin-bottom: 100px;
+    box-shadow: 0 8px 20px #000; /* Тень под корпусом */
+}
+
+/* Само табло (стекло и текст) */
+.lcd-screen {
+    background: #1e2418;    /* Очень темно-зеленый фон (как у старых ЖК) */
+    color: #ccff00;         /* Ядовито-желтый/зеленый цвет букв */
+    font-size: 30px; 
+    text-align: right;      /* Текст прижат к правому краю, как в калькуляторах */
+    padding: 8px; 
+    height: 35px;
+    line-height: 35px;      /* Центрирование текста по вертикали */
+    
+    /* Эффект свечения букв */
+    text-shadow: 0 0 8px #ccff00; 
+    
+    /* Шрифт Courier New дает эффект печатной машинки/старой электроники */
+    font-family: 'Courier New', monospace; 
+}
+.keypad-chassis {
+    background: #333; padding: 15px; border-radius: 4px; 
+    box-shadow: 0 20px 40px #000; border: 1px solid #1a1a1a;
+}
+
+.status-leds { display: flex; gap: 8px; margin-bottom: 12px; }
+.led-y { width: 10px; height: 10px; border-radius: 50%; background: #ffff00; box-shadow: 0 0 8px yellow; }
+.led-r { width: 10px; height: 10px; border-radius: 50%; background: #ff0000; opacity: 0.1; }
+.led-r.active { opacity: 1; box-shadow: 0 0 15px red; }
+.led-static { width: 10px; height: 10px; border-radius: 50%; background: #555; }
+
+.button-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+button {
+    background: #ddd; color: #111; border: none; height: 45px;
+    font-size: 20px; font-weight: bold; border-bottom: 4px solid #888; cursor: pointer;
+}
+button:active { transform: translateY(3px); border-bottom: 1px solid #888; }
+.btn-action { background: #900 !important; color: #fff !important; }
+.btn-dark { background: #555 !important; color: #fff !important; }
+
+.math-row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 4px; margin-top: 15px; }
+.math-row button { background: #111; color: #999; height: 30px; font-size: 12px; border: none; }
+
+.goose-sticker {
+    position: absolute; right: -35px; bottom: 0;
+    width: 45px; height: 45px;
+    background: url('https://w7.pngwing.com/pngs/671/617/png-transparent-goose-bird-duck-goose-animals-photography-logo.png') no-repeat center/contain;
+    opacity: 0.6; filter: grayscale(0.5);
+}
+
+/* Контейнер тумблера и его позиционирование на бомбе */
+.master-switch {
+    position: absolute; 
+    left: -40px; /* Сдвиг влево, чтобы он был сбоку */
+    top: 90px;  /* Высота, на которой он прикреплен */
+    z-index: 5;  /* Стоит под скотчем, чтобы казаться примотанным */
+}
+
+/* Основание (черная коробочка) */
+.rocker { 
+    position: relative; 
+    display: block; 
+    width: 40px; 
+    height: 130px; 
+    background: #222; 
+    border-radius: 3px; 
+}
+
+/* Сама красная клавиша */
+.rocker-plate {
+    position: absolute; 
+    top: 3px; 
+    left: 4px; 
+    right: 4px; 
+    height: 40px;
+    background: #600; /* Темно-красный в выключенном состоянии */
+    transition: 0.2s; /* Плавность движения */
+}
+
+/* Полностью скрываем стандартный чекбокс (квадратик с галочкой) */
+.rocker input {
+    display: none;
+}
+
+/* Состояние ПРИ НАЖАТИИ */
+/* Когда скрытый чекбокс включен, двигаем красную панель */
+.rocker input:checked + .rocker-plate { 
+    transform: translateY(10px); /* Увеличил до 32px для полного хода кнопки */
+    background: #ff0000;         /* Яркий красный цвет */
+    box-shadow: 0 0 15px #ff0000; /* Добавил легкое свечение при включении */
+}
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
