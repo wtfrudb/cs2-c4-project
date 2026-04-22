@@ -2,6 +2,7 @@
     --kb-w: 260px;
     --block-w: calc(var(--kb-w) * 0.52); 
     --c4-tan: #b59a6d;
+    --blink-speed: 0.8s;
 }
 
 body {
@@ -227,7 +228,14 @@ button:active { transform: translateY(3px); border-bottom: 1px solid #888; }
 
 /* Полностью скрываем стандартный чекбокс (квадратик с галочкой) */
 .rocker input {
-    display: none;
+    /* Вместо display: none используем это: */
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    appearance: none;
+    -webkit-appearance: none;
 }
 
 /* Состояние ПРИ НАЖАТИИ */
@@ -237,4 +245,78 @@ button:active { transform: translateY(3px); border-bottom: 1px solid #888; }
     background: #ff0000;         /* Яркий красный цвет */
     box-shadow: 0 0 15px #ff0000; /* Добавил легкое свечение при включении */
 }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+/* Анимация мигания */
+@keyframes blink-yellow {
+    0% { 
+        background: #ffff00; 
+        box-shadow: 0 0 10px #ffff00; 
+    }
+    50% { 
+        background: #444000; /* Тусклый цвет */
+        box-shadow: 0 0 0px transparent; 
+    }
+    100% { 
+        background: #ffff00; 
+        box-shadow: 0 0 10px #ffff00; 
+    }
+}
+
+/* Обновленный класс желтого светодиода */
+.led-y {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ffff00;
+    /* Применяем анимацию: 1 секунда, бесконечно */
+    animation: blink-yellow 1s infinite ease-in-out;
+}
+
+/* Плавный возврат фона */
+body {
+    background: #111;
+    transition: background 0.5s ease;
+    overflow: hidden;
+}
+
+/* Эффект взрыва */
+body.boom {
+    background: #fff !important; /* Белая вспышка */
+}
+
+body.boom .bomb-viewport {
+    animation: shake 0.1s infinite;
+    filter: invert(1) contrast(2); /* Инверсия цветов устройства */
+}
+
+body.boom::after {
+    content: "BOMB HAS EXPLODED";
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    color: #ff0000;
+    font-weight: 900;
+    z-index: 1000;
+    text-shadow: 0 0 20px rgba(0,0,0,0.5);
+    font-family: 'Courier New', monospace;
+}
+
+@keyframes shake {
+    0% { transform: translate(2px, 2px) rotate(0deg); }
+    25% { transform: translate(-2px, -2px) rotate(-1deg); }
+    50% { transform: translate(2px, -2px) rotate(1deg); }
+    75% { transform: translate(-2px, 2px) rotate(0deg); }
+    100% { transform: translate(2px, 2px) rotate(0deg); }
+}
+
+#red-led.arming {
+    background: #ff0000;
+    opacity: 1;
+    /* Используем переменную для скорости */
+    animation: blink-red var(--blink-speed) infinite;
+}
+
+@keyframes blink-red {
+    0%, 100% { opacity: 1; box-shadow: 0 0 15px #ff0000; }
+    50% { opacity: 0.2; box-shadow: 0 0 0px transparent; }
+}

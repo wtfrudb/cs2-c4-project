@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<linker>
+  <assembly fullname="Logic">
+    <resource name="FSharpSignatureData.Logic" action="remove"></resource>
+    <resource name="FSharpSignatureCompressedData.Logic" action="remove"></resource>
+    <resource name="FSharpSignatureDataB.Logic" action="remove"></resource>
+    <resource name="FSharpSignatureCompressedDataB.Logic" action="remove"></resource>
+    <resource name="FSharpOptimizationData.Logic" action="remove"></resource>
+    <resource name="FSharpOptimizationCompressedData.Logic" action="remove"></resource>
+    <resource name="FSharpOptimizationDataB.Logic" action="remove"></resource>
+    <resource name="FSharpOptimizationCompressedDataB.Logic" action="remove"></resource>
+    <resource name="FSharpOptimizationInfo.Logic" action="remove"></resource>
+    <resource name="FSharpSignatureInfo.Logic" action="remove"></resource>
+  </assembly>
+</linker>

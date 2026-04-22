@@ -7,6 +7,7 @@
     <title>CS2 C4 Final Revision</title>
 </head>
 <body>
+    <div class="explosion-overlay"></div>
     <div class="bomb-viewport">
         <div class="c4-main-structure">
             
@@ -42,10 +43,13 @@
                     </div>
 
                     <div class="button-grid">
-                        <button onclick="window.press('7')">7</button><button onclick="window.press('8')">8</button><button onclick="window.press('9')">9</button>
-                        <button onclick="window.press('4')">4</button><button onclick="window.press('5')">5</button><button onclick="window.press('6')">6</button>
-                        <button onclick="window.press('1')">1</button><button onclick="window.press('2')">2</button><button onclick="window.press('3')">3</button>
-                        <button onclick="window.press('C')" class="btn-dark">C</button><button onclick="window.press('0')">0</button><button onclick="window.press('=')" class="btn-action">=</button>
+                        <button onclick="press('7')">7</button><button onclick="press('8')">8</button><button onclick="press('9')">9</button>
+                        <button onclick="press('4')">4</button><button onclick="press('5')">5</button><button onclick="press('6')">6</button>
+                        <button onclick="press('1')">1</button><button onclick="press('2')">2</button><button onclick="press('3')">3</button>
+                        
+                        <button onclick="press('C')" class="btn-dark">C</button>
+                        <button onclick="press('0')">0</button>
+                        <button onclick="press('DEL')" class="btn-dark">←</button> <button onclick="press('=')" class="btn-action" style="grid-column: span 3">=</button>
                     </div>
 
                     <div class="math-row">
